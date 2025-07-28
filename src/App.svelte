@@ -43,17 +43,23 @@
   }
 
   function handleZoomIn() {
-    canvasState.update(state => ({
-      ...state,
-      zoom: Math.min(3, state.zoom * 1.2)
-    }));
+    canvasState.update(state => {
+      const newZoom = Math.min(3, state.zoom * 1.2);
+      return {
+        ...state,
+        zoom: newZoom
+      };
+    });
   }
 
   function handleZoomOut() {
-    canvasState.update(state => ({
-      ...state,
-      zoom: Math.max(0.1, state.zoom / 1.2)
-    }));
+    canvasState.update(state => {
+      const newZoom = Math.max(0.1, state.zoom / 1.2);
+      return {
+        ...state,
+        zoom: newZoom
+      };
+    });
   }
 
   function handleResetView() {
@@ -98,30 +104,29 @@
     flex-direction: column;
     height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffffff;
   }
 
   .app-header {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 16px 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+    padding: 12px 20px;
     text-align: center;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .app-header h1 {
     margin: 0 0 4px 0;
-    font-size: 24px;
-    font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
   }
 
   .app-header p {
     margin: 0;
     font-size: 13px;
-    opacity: 0.9;
+    color: #6b7280;
   }
 
   .app-content {
@@ -130,6 +135,7 @@
     gap: 16px;
     padding: 16px;
     min-height: 0;
+    background: #f9fafb;
   }
 
   .sidebar {
@@ -147,13 +153,12 @@
   .canvas-container {
     flex: 1;
     order: 2;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     min-height: 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #e5e7eb;
   }
 
   @media (max-width: 768px) {

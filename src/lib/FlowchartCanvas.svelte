@@ -198,12 +198,27 @@
 
   function handleWheel(event: WheelEvent) {
     event.preventDefault();
+    
+    const rect = canvasElement.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    
     const delta = event.deltaY > 0 ? 0.9 : 1.1;
-    const newZoom = Math.max(0.1, Math.min(3, $canvasState.zoom * delta));
+    const oldZoom = $canvasState.zoom;
+    const newZoom = Math.max(0.1, Math.min(3, oldZoom * delta));
+    
+    // Calculate the zoom point in world coordinates
+    const worldX = (mouseX - $canvasState.pan.x) / oldZoom;
+    const worldY = (mouseY - $canvasState.pan.y) / oldZoom;
+    
+    // Calculate new pan to keep the point under the mouse
+    const newPanX = mouseX - worldX * newZoom;
+    const newPanY = mouseY - worldY * newZoom;
     
     canvasState.update(state => ({
       ...state,
-      zoom: newZoom
+      zoom: newZoom,
+      pan: { x: newPanX, y: newPanY }
     }));
   }
 
@@ -217,12 +232,12 @@
     };
   });
 
-  // Grid pattern
+  // Grid pattern - Excalidraw style
   $: gridPattern = $gridSettings.enabled ? 
-    `radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px)` :
+    `radial-gradient(circle, #d1d5db 1px, transparent 1px)` :
     'none';
   
-  $: gridSize = $gridSettings.size;
+  $: gridSize = $gridSettings.size * $canvasState.zoom;
 </script>
 
 <div 
@@ -239,7 +254,7 @@
   style="
     background-image: {gridPattern};
     background-size: {gridSize}px {gridSize}px;
-    transform: scale({$canvasState.zoom}) translate({$canvasState.pan.x}px, {$canvasState.pan.y}px);
+    background-position: {$canvasState.pan.x}px {$canvasState.pan.y}px;
   "
 >
   <!-- SVG for connections -->
@@ -248,6 +263,7 @@
     bind:this={svgElement}
     width="100%"
     height="100%"
+    style="transform: translate({$canvasState.pan.x}px, {$canvasState.pan.y}px) scale({$canvasState.zoom});"
   >
     <!-- Existing connections -->
     {#each $flowchartData.connections as connection (connection.id)}
@@ -261,7 +277,7 @@
     {#if tempConnection}
       <path
         d="M {tempConnection.from.x} {tempConnection.from.y} L {tempConnection.to.x} {tempConnection.to.y}"
-        stroke="#007ACC"
+        stroke="#3b82f6"
         stroke-width="2"
         stroke-dasharray="5,5"
         fill="none"
@@ -270,7 +286,7 @@
   </svg>
 
   <!-- Nodes layer -->
-  <div class="nodes-layer">
+  <div class="nodes-layer" style="transform: translate({$canvasState.pan.x}px, {$canvasState.pan.y}px) scale({$canvasState.zoom});">
     {#each $flowchartData.nodes as node (node.id)}
       <FlowchartNode 
         {node}
@@ -288,7 +304,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: #ffffff;
     overflow: hidden;
     cursor: default;
     transform-origin: 0 0;
@@ -297,7 +313,7 @@
   }
 
   .flowchart-canvas:focus {
-    box-shadow: inset 0 0 0 2px rgba(0, 122, 204, 0.3);
+    box-shadow: inset 0 0 0 2px #3b82f6;
   }
 
   .connections-layer {

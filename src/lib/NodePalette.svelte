@@ -33,11 +33,31 @@
 
   function getNodeColor(type: NodeType) {
     switch (type) {
-      case 'process': return '#4CAF50';
-      case 'decision': return '#FF9800';
-      case 'input': return '#2196F3';
-      case 'output': return '#9C27B0';
-      default: return '#757575';
+      case 'process': return '#fef3c7'; // Light yellow
+      case 'decision': return '#fed7d7'; // Light red/pink
+      case 'input': return '#dbeafe'; // Light blue
+      case 'output': return '#d1fae5'; // Light green
+      default: return '#f3f4f6';
+    }
+  }
+
+  function getNodeBorderColor(type: NodeType) {
+    switch (type) {
+      case 'process': return '#f59e0b'; // Yellow
+      case 'decision': return '#ef4444'; // Red
+      case 'input': return '#3b82f6'; // Blue
+      case 'output': return '#10b981'; // Green
+      default: return '#6b7280';
+    }
+  }
+
+  function getNodeTextColor(type: NodeType) {
+    switch (type) {
+      case 'process': return '#92400e'; // Dark yellow
+      case 'decision': return '#b91c1c'; // Dark red
+      case 'input': return '#1e40af'; // Dark blue
+      case 'output': return '#047857'; // Dark green
+      default: return '#374151';
     }
   }
 
@@ -67,6 +87,8 @@
         on:keydown={(e) => e.key === 'Enter' && handleClick(type)}
         style="
           background-color: {getNodeColor(type)};
+          border-color: {getNodeBorderColor(type)};
+          color: {getNodeTextColor(type)};
           clip-path: {getNodeShape(type)};
         "
         role="button"
@@ -87,20 +109,19 @@
 
 <style>
   .node-palette {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     min-width: 180px;
   }
 
   .node-palette h3 {
     margin: 0 0 16px 0;
     font-size: 16px;
-    color: #334155;
-    font-weight: 600;
+    color: #1f2937;
+    font-weight: 700;
   }
 
   .palette-grid {
@@ -112,36 +133,22 @@
   .palette-item {
     width: 140px;
     height: 50px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid;
     border-radius: 8px;
     cursor: grab;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     user-select: none;
-    backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-  }
-
-  .palette-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: inherit;
-    opacity: 0.9;
-    z-index: -1;
+    font-weight: 600;
   }
 
   .palette-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: rgba(255, 255, 255, 0.2);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
   }
 
   .palette-item:active {
@@ -163,13 +170,12 @@
 
   .palette-label {
     font-size: 13px;
-    font-weight: 500;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
   }
 
   .palette-instructions {
     text-align: center;
-    color: #64748b;
+    color: #6b7280;
     font-size: 11px;
   }
 

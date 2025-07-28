@@ -183,12 +183,11 @@
 
 <style>
   .toolbar {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -200,9 +199,9 @@
   .toolbar-section h3 {
     margin: 0 0 10px 0;
     font-size: 14px;
-    color: #334155;
-    font-weight: 600;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: #1f2937;
+    font-weight: 700;
+    border-bottom: 1px solid #f3f4f6;
     padding-bottom: 6px;
   }
 
@@ -214,31 +213,31 @@
 
   button {
     padding: 8px 12px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid #d1d5db;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.8);
+    background: white;
     cursor: pointer;
     font-size: 12px;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     gap: 6px;
-    backdrop-filter: blur(5px);
     font-weight: 500;
+    color: #374151;
   }
 
   button:hover {
-    background: rgba(255, 255, 255, 1);
-    border-color: #007ACC;
+    background: #f9fafb;
+    border-color: #3b82f6;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   button.active {
-    background: #007ACC;
+    background: #3b82f6;
     color: white;
-    border-color: #007ACC;
-    box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+    border-color: #3b82f6;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
   }
 
   button.danger {
@@ -246,14 +245,14 @@
   }
 
   button.danger:hover {
-    background: rgba(239, 68, 68, 0.1);
+    background: #fef2f2;
     border-color: #dc2626;
   }
 
   .grid-size-slider {
     width: 100%;
     margin-top: 6px;
-    accent-color: #007ACC;
+    accent-color: #3b82f6;
   }
 
   .stats {
@@ -270,13 +269,13 @@
   }
 
   .stat-label {
-    color: #64748b;
+    color: #6b7280;
     font-weight: 500;
   }
 
   .stat-value {
     font-weight: 600;
-    color: #334155;
+    color: #1f2937;
   }
 
   .shortcuts {
@@ -294,17 +293,18 @@
   }
 
   .shortcut-key {
-    background: rgba(0, 0, 0, 0.1);
+    background: #f3f4f6;
     padding: 2px 6px;
     border-radius: 4px;
     font-weight: 600;
-    color: #334155;
+    color: #1f2937;
     font-family: monospace;
     font-size: 10px;
+    border: 1px solid #e5e7eb;
   }
 
   .shortcut-desc {
-    color: #64748b;
+    color: #6b7280;
     font-weight: 500;
   }
 </style>

@@ -114,11 +114,31 @@
 
   function getNodeColor(type: string) {
     switch (type) {
-      case 'process': return '#4CAF50';
-      case 'decision': return '#FF9800';
-      case 'input': return '#2196F3';
-      case 'output': return '#9C27B0';
-      default: return '#757575';
+      case 'process': return '#fef3c7'; // Light yellow
+      case 'decision': return '#fed7d7'; // Light red/pink
+      case 'input': return '#dbeafe'; // Light blue
+      case 'output': return '#d1fae5'; // Light green
+      default: return '#f3f4f6';
+    }
+  }
+
+  function getNodeBorderColor(type: string) {
+    switch (type) {
+      case 'process': return '#f59e0b'; // Yellow
+      case 'decision': return '#ef4444'; // Red
+      case 'input': return '#3b82f6'; // Blue
+      case 'output': return '#10b981'; // Green
+      default: return '#6b7280';
+    }
+  }
+
+  function getNodeTextColor(type: string) {
+    switch (type) {
+      case 'process': return '#92400e'; // Dark yellow
+      case 'decision': return '#b91c1c'; // Dark red
+      case 'input': return '#1e40af'; // Dark blue
+      case 'output': return '#047857'; // Dark green
+      default: return '#374151';
     }
   }
 
@@ -150,6 +170,8 @@
     height: {node.size.height}px;
     clip-path: {getNodeShape(node.type)};
     background-color: {getNodeColor(node.type)};
+    border-color: {getNodeBorderColor(node.type)};
+    color: {getNodeTextColor(node.type)};
   "
   on:mousedown={handleMouseDown}
   on:dblclick={handleDoubleClick}
@@ -212,25 +234,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 2px solid;
     cursor: move;
     user-select: none;
     transition: all 0.2s ease;
-    color: white;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 13px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    /* Slightly hand-drawn effect */
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
   }
 
   .flowchart-node:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
     transform: translateY(-1px);
   }
 
   .flowchart-node.selected {
-    border-color: #007ACC;
-    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.3), 0 4px 16px rgba(0, 0, 0, 0.15);
+    border-width: 3px;
+    border-color: #3b82f6 !important;
+    filter: drop-shadow(0 0 0 2px rgba(59, 130, 246, 0.2));
   }
 
   .node-text {
@@ -239,32 +262,32 @@
     word-break: break-word;
     max-width: 100%;
     overflow: hidden;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   .node-text-input {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #d1d5db;
     border-radius: 4px;
-    color: white;
+    color: inherit;
     text-align: center;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     outline: none;
     width: 90%;
     padding: 6px 8px;
   }
 
   .node-text-input:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: white;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
   }
 
   .connection-point {
     position: absolute;
     width: 10px;
     height: 10px;
-    background: #007ACC;
+    background: #3b82f6;
     border: 2px solid white;
     border-radius: 50%;
     opacity: 0;
@@ -281,7 +304,7 @@
 
   .connection-point:hover {
     transform: scale(1.2);
-    background: #0056b3;
+    background: #1d4ed8;
   }
 
   .connection-point.left {

@@ -45,7 +45,7 @@
   <!-- Connection line -->
   <path
     d={pathData}
-    stroke="rgba(0, 0, 0, 0.4)"
+    stroke="#6b7280"
     stroke-width="2"
     fill="none"
     class="connection-path"
@@ -73,7 +73,7 @@
     >
       <polygon
         points="0 0, 10 3.5, 0 7"
-        fill="rgba(0, 0, 0, 0.4)"
+        fill="#6b7280"
       />
     </marker>
   </defs>
@@ -86,16 +86,15 @@
 
   .connection-path {
     transition: all 0.2s ease;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
   }
 
   .connection:hover .connection-path {
-    stroke: #007ACC;
+    stroke: #3b82f6;
     stroke-width: 3;
   }
 
   .connection:hover marker polygon {
-    fill: #007ACC;
+    fill: #3b82f6;
   }
 
   .connection-hitbox {
