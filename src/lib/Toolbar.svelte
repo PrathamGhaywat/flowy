@@ -161,89 +161,99 @@
 
 <style>
   .toolbar {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 20px;
-    min-width: 200px;
+    min-width: 180px;
     max-height: 80vh;
     overflow-y: auto;
   }
 
   .toolbar-section h3 {
-    margin: 0 0 8px 0;
+    margin: 0 0 10px 0;
     font-size: 14px;
-    color: #333;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 4px;
+    color: #334155;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 6px;
   }
 
   .button-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
   button {
     padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.8);
     cursor: pointer;
     font-size: 12px;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    backdrop-filter: blur(5px);
+    font-weight: 500;
   }
 
   button:hover {
-    background: #f5f5f5;
+    background: rgba(255, 255, 255, 1);
     border-color: #007ACC;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   button.active {
     background: #007ACC;
     color: white;
     border-color: #007ACC;
+    box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
   }
 
   button.danger {
-    color: #d32f2f;
+    color: #dc2626;
   }
 
   button.danger:hover {
-    background: #ffebee;
-    border-color: #d32f2f;
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #dc2626;
   }
 
   .grid-size-slider {
     width: 100%;
-    margin-top: 4px;
+    margin-top: 6px;
+    accent-color: #007ACC;
   }
 
   .stats {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
 
   .stat {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
+    padding: 4px 0;
   }
 
   .stat-label {
-    color: #666;
+    color: #64748b;
+    font-weight: 500;
   }
 
   .stat-value {
-    font-weight: 500;
-    color: #333;
+    font-weight: 600;
+    color: #334155;
   }
 </style>

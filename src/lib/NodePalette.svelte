@@ -87,18 +87,20 @@
 
 <style>
   .node-palette {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    min-width: 200px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
   }
 
   .node-palette h3 {
     margin: 0 0 16px 0;
     font-size: 16px;
-    color: #333;
+    color: #334155;
+    font-weight: 600;
   }
 
   .palette-grid {
@@ -108,10 +110,10 @@
   }
 
   .palette-item {
-    width: 120px;
-    height: 60px;
-    border: 2px solid #333;
-    border-radius: 4px;
+    width: 140px;
+    height: 50px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     cursor: grab;
     transition: all 0.2s ease;
     display: flex;
@@ -119,39 +121,56 @@
     justify-content: center;
     color: white;
     user-select: none;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .palette-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    opacity: 0.9;
+    z-index: -1;
   }
 
   .palette-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   .palette-item:active {
     cursor: grabbing;
-    transform: scale(0.95);
+    transform: translateY(0);
   }
 
   .palette-content {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
     text-align: center;
+    z-index: 1;
   }
 
   .palette-icon {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .palette-label {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   .palette-instructions {
     text-align: center;
-    color: #666;
-    font-size: 12px;
+    color: #64748b;
+    font-size: 11px;
   }
 
   .palette-instructions p {

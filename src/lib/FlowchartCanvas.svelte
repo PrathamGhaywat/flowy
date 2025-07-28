@@ -9,7 +9,7 @@
   let canvasElement: HTMLDivElement;
   let svgElement: SVGSVGElement;
   let isConnecting = false;
-  let connectionStart: { nodeId: string; position: Position } | null = null;
+  let connectionStart: { nodeId: string; position: Position; side: string } | null = null;
   let tempConnection: { from: Position; to: Position } | null = null;
 
   function handleCanvasClick(event: MouseEvent) {
@@ -88,12 +88,21 @@
     removeNode(id);
   }
 
-  function handleConnectionStart(event: CustomEvent<{ nodeId: string; position: Position }>) {
-    connectionStart = event.detail;
+  function handleConnectionStart(event: CustomEvent<{ nodeId: string; position: Position; side: string }>) {
+    const { nodeId, position, side } = event.detail;
+    const canvasRect = canvasElement.getBoundingClientRect();
+    
+    // Convert screen coordinates to canvas coordinates
+    const canvasPosition = {
+      x: (position.x - canvasRect.left - $canvasState.pan.x) / $canvasState.zoom,
+      y: (position.y - canvasRect.top - $canvasState.pan.y) / $canvasState.zoom
+    };
+    
+    connectionStart = { nodeId, position: canvasPosition, side };
     isConnecting = true;
     tempConnection = {
-      from: event.detail.position,
-      to: event.detail.position
+      from: canvasPosition,
+      to: canvasPosition
     };
   }
 
@@ -193,8 +202,10 @@
 
   // Grid pattern
   $: gridPattern = $gridSettings.enabled ? 
-    `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='${$gridSettings.size}' height='${$gridSettings.size}' viewBox='0 0 ${$gridSettings.size} ${$gridSettings.size}'%3E%3Cpath d='M 0 0 L 0 ${$gridSettings.size} L ${$gridSettings.size} ${$gridSettings.size} L ${$gridSettings.size} 0 Z' fill='none' stroke='%23e0e0e0' stroke-width='1'/%3E%3C/svg%3E")` :
+    `radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px)` :
     'none';
+  
+  $: gridSize = $gridSettings.size;
 </script>
 
 <div 
@@ -207,9 +218,10 @@
   on:keydown={(e) => e.key === 'Escape' && clearSelection()}
   role="application"
   aria-label="Flowchart canvas"
-  tabindex="0"
+  tabindex="-1"
   style="
     background-image: {gridPattern};
+    background-size: {gridSize}px {gridSize}px;
     transform: scale({$canvasState.zoom}) translate({$canvasState.pan.x}px, {$canvasState.pan.y}px);
   "
 >
@@ -259,7 +271,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     overflow: hidden;
     cursor: default;
     transform-origin: 0 0;
