@@ -44,7 +44,14 @@
   $: arrow = getArrowMarker(connection.fromPoint, connection.toPoint);
 </script>
 
-<g class="connection" on:click={handleConnectionClick}>
+<g 
+  class="connection" 
+  on:click={handleConnectionClick}
+  on:keydown={(e) => e.key === 'Enter' && handleConnectionClick(e)}
+  role="button"
+  aria-label="Connection between nodes"
+  tabindex="0"
+>
   <!-- Connection line -->
   <path
     d={pathData}

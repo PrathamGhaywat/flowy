@@ -64,6 +64,7 @@
         draggable="true"
         on:dragstart={(e) => handleDragStart(e, type)}
         on:click={() => handleClick(type)}
+        on:keydown={(e) => e.key === 'Enter' && handleClick(type)}
         style="
           background-color: {getNodeColor(type)};
           clip-path: {getNodeShape(type)};

@@ -204,6 +204,10 @@
   on:drop={handleCanvasDrop}
   on:dragover={handleCanvasDragOver}
   on:wheel={handleWheel}
+  on:keydown={(e) => e.key === 'Escape' && clearSelection()}
+  role="application"
+  aria-label="Flowchart canvas"
+  tabindex="0"
   style="
     background-image: {gridPattern};
     transform: scale({$canvasState.zoom}) translate({$canvasState.pan.x}px, {$canvasState.pan.y}px);
