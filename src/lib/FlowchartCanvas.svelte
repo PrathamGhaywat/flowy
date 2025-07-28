@@ -18,6 +18,18 @@
     }
   }
 
+  function handleCanvasKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Delete' || event.key === 'Backspace') {
+      // Delete all selected nodes
+      const selectedNodes = $flowchartData.nodes.filter(node => node.selected);
+      selectedNodes.forEach(node => {
+        removeNode(node.id);
+      });
+    } else if (event.key === 'Escape') {
+      clearSelection();
+    }
+  }
+
   function handleCanvasDrop(event: DragEvent) {
     event.preventDefault();
     const data = event.dataTransfer?.getData('application/json');
@@ -81,6 +93,11 @@
   function handleNodeSelect(event: CustomEvent<{ id: string; addToSelection: boolean }>) {
     const { id, addToSelection } = event.detail;
     selectNode(id, addToSelection);
+    
+    // Focus the canvas so keyboard events work
+    setTimeout(() => {
+      canvasElement?.focus();
+    }, 0);
   }
 
   function handleNodeDelete(event: CustomEvent<{ id: string }>) {
@@ -215,10 +232,10 @@
   on:drop={handleCanvasDrop}
   on:dragover={handleCanvasDragOver}
   on:wheel={handleWheel}
-  on:keydown={(e) => e.key === 'Escape' && clearSelection()}
+  on:keydown={handleCanvasKeyDown}
   role="application"
-  aria-label="Flowchart canvas"
-  tabindex="-1"
+  aria-label="Flowchart canvas - Press Delete to remove selected nodes"
+  tabindex="0"
   style="
     background-image: {gridPattern};
     background-size: {gridSize}px {gridSize}px;
@@ -276,6 +293,11 @@
     cursor: default;
     transform-origin: 0 0;
     transition: transform 0.1s ease;
+    outline: none;
+  }
+
+  .flowchart-canvas:focus {
+    box-shadow: inset 0 0 0 2px rgba(0, 122, 204, 0.3);
   }
 
   .connections-layer {

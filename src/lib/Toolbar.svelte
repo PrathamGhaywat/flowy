@@ -155,6 +155,28 @@
         <span class="stat-label">Zoom:</span>
         <span class="stat-value">{Math.round($canvasState.zoom * 100)}%</span>
       </div>
+      <div class="stat">
+        <span class="stat-label">Selected:</span>
+        <span class="stat-value">{$canvasState.selection.length}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar-section">
+    <h3>Shortcuts</h3>
+    <div class="shortcuts">
+      <div class="shortcut">
+        <span class="shortcut-key">Delete</span>
+        <span class="shortcut-desc">Remove selected</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-key">Ctrl+Click</span>
+        <span class="shortcut-desc">Multi-select</span>
+      </div>
+      <div class="shortcut">
+        <span class="shortcut-key">Double-click</span>
+        <span class="shortcut-desc">Edit text</span>
+      </div>
     </div>
   </div>
 </div>
@@ -255,5 +277,34 @@
   .stat-value {
     font-weight: 600;
     color: #334155;
+  }
+
+  .shortcuts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .shortcut {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    padding: 2px 0;
+  }
+
+  .shortcut-key {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #334155;
+    font-family: monospace;
+    font-size: 10px;
+  }
+
+  .shortcut-desc {
+    color: #64748b;
+    font-weight: 500;
   }
 </style>

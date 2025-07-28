@@ -95,9 +95,8 @@
       handleTextSubmit();
     } else if (event.key === 'Escape') {
       isEditing = false;
-    } else if (event.key === 'Delete' && !isEditing) {
-      dispatch('nodeDelete', { id: node.id });
     }
+    // Note: Delete key handling is now done at the canvas level
   }
 
   function getNodeShape(type: string) {
